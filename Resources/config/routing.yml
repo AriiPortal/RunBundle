@@ -1,0 +1,34 @@
+# --------------------------------------------------------------------------
+# PAGES PRINCIPALES
+# --------------------------------------------------------------------------
+arii_Run_index:
+    pattern:  /
+    defaults: { _controller: AriiRunBundle:History:index }
+
+arii_Run_readme:
+    pattern:  /readme
+    defaults: { _controller: AriiRunBundle:Default:readme }
+
+xml_Run_toolbar:
+    pattern:  /toolbar.xml
+    defaults: { _controller: AriiRunBundle:Default:toolbar }
+
+json_Run_ribbon:
+    pattern:  /ribbon.json
+    defaults: { _controller: AriiRunBundle:Default:ribbon }
+
+xml_Run_menu:
+    pattern:  /menu.xml
+    defaults: { _controller: AriiRunBundle:Default:menu }
+
+xml_Run_categories_tree:
+    pattern:  /categories.xml
+    defaults: { _controller: AriiRunBundle:Default:categories }
+
+# --------------------------------------------------------------------------
+# History
+# --------------------------------------------------------------------------
+arii_Run_history:
+    pattern:  /history
+    defaults: { _controller: AriiRunBundle:History:index }
+

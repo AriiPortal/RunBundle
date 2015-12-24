@@ -1,0 +1,107 @@
+{
+   "items":
+   [
+      {   "type":"block", 
+          text:"{{ "Run" | trans }}", 
+          "text_pos": "top", 
+          "list":
+          [
+             {   "type": "button", 
+                 text:"", 
+                 "isbig": true, 
+                 "img": "48/run.png"
+              },
+             {   "type": "buttonSelect", 
+                 text:"", 
+                 "img": "view.png", 
+                 items:
+                 [ 
+                    { id:"menu_jobs", text: "{{ "Jobs" | trans }}", img: "job.png" },
+                    { id:"menu_history", text: "{{ "History" | trans }}", img: "splines.png" }
+                 ]
+              }
+          ]
+      },      
+      {   "type":"block", 
+          text:"{{ "History" | trans }}", 
+          "text_pos": "bottom", 
+          "list":
+          [
+              {   id: "ref_past", 
+                  "type":"buttonSelect", 
+                  text:"{{ app.session.get('past') | slice (0,10) }}", 
+                  "img": "timeline.png",
+                  "items": 
+                  [ 
+                     { id: "-1", text: "1 {{ "day" | trans }}" },
+                     { id: "-2", text: "2 {{ "days" | trans }}" },
+                     { id: "-3", text: "3 {{ "days" | trans }}" },
+                     { id: "-4", text: "4 {{ "days" | trans }}" },
+                     { id: "-5", text: "5 {{ "days" | trans }}" },
+                     { id: "-6", text: "6 {{ "days" | trans }}" },
+                     { id: "-7", text: "1 {{ "week" | trans }}" },
+                     { id: "-14", text: "2 {{ "weeks" | trans }}" },
+                     { id: "-21", text: "3 {{ "weeks" | trans }}" },
+                     { id: "-30", text: "1 {{ "month" | trans }}" },
+                     { id: "-60", text: "2 {{ "months" | trans }}" },
+                     { id: "-90", text: "3 {{ "months" | trans }}" },
+                     { id: "-180", text: "6 {{ "months" | trans }}" },
+                     { id: "-365", text: "1 {{ "year" | trans }}" }
+                  ]
+              },
+             {   id: "refresh", 
+                  "type":"buttonSelect", 
+                  text:"--:--:--", 
+                  "img": "refresh.png",
+                  "items": 
+                  [ 
+                     { id: "5", text: "5 {{ "seconds" | trans }}" },
+                     { id: "30", text: "30 {{ "seconds" | trans }}" },
+                     { id: "60", text: "1 {{ "minute" | trans }}" },
+                     { id: "300", text: "5 {{ "minutes" | trans }}" },
+                     { id: "1800", text: "15 {{ "minutes" | trans }}" },
+                     { id: "3600", text: "1 {{ "hour" | trans }}" }
+                  ]
+              },
+              {
+                  id : "group_2", 
+                  type : "group", 
+                  list : 
+                  [   {id:"chained","type":"buttonTwoState",text:"","img":"ordered.png"},
+                      {id:"only_warning","type":"buttonTwoState",text:"","img":"warning.png" /*, state: true*/ }
+                  ]
+              },
+{% set current_db = app.session.get('database') %} 
+              {   id: "database", 
+                  "type":"buttonSelect", 
+                  text:"", 
+                  "img": "database.png",
+                  "items": 
+                  [ 
+{% for database in Databases %}
+{id:"{{ database.id }}", text:"{{ database.name }}"{% if database.name == current_db.name %}, img: "accept.png"{% endif %} },
+{% endfor %}
+                  ]
+               },
+            {   "type": "buttonSelect", 
+                 text:"",
+                 "id": "Filters",
+                 "img": "zoom.png", 
+                 items:
+                 [ 
+              {id:"filter_edit","type":"button",text:"{{ "New" | trans }}","img":"zoom_in.png","tooltip": "{{ "Edit filter" | trans }}" },
+     {% if (app.session.get('UserFilters')|length) >0 %}
+            { id:"sepf0", type: "separator" },    
+    {% set current = app.session.get('user_filter') %}     
+       {% set filters = app.session.get('UserFilters') %}     
+        {% for k,filter in filters %}
+            { id:"filter_{{ filter.id }}", text: "{{ filter.name }}" {% if filter.name == current.name %}, img: "accept.png"{% endif %}  },
+        {% endfor %}
+    {% endif %}
+                  ]
+              },
+              {id:"filter_all","type":"button",tooltip:"{{ "All" | trans }}","img":"zoom_out.png"}
+            ]
+        }
+   ]
+}

@@ -1,0 +1,3 @@
+module.Run: Runbook
+summary.Run: Automatisation de commandes
+text.Run: Ce module propose une interface pour Rundeck
